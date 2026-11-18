@@ -3,4 +3,7 @@ export interface Note {
   title: string;
   content: string;
   category: string;
+  done: boolean;
 }
+
+export const CATEGORIES = ["Kuliah", "Pribadi", "Kerja"];
