@@ -1,8 +1,10 @@
+import PostsSection from "./components/PostsSection";
 import { useState } from "react";
 import { CATEGORIES, type Note } from "./types/Note";
 import { useLocalStorage } from "./hooks/useLocalStorage";
 import NoteForm from "./components/NoteForm";
 import NoteCard from "./components/NoteCard";
+
 
 type StatusFilter = "semua" | "belum" | "selesai";
 
@@ -86,6 +88,7 @@ export default function App() {
         <span>{remaining} catatan tersisa</span>
         <button className="link" onClick={clearDone}>Hapus yang Selesai</button>
       </footer>
+               <PostsSection />  
     </div>
   );
 }

@@ -1,17 +1,29 @@
-const [posts, setPosts] = useState<Post[]>([]);
-const [loading, setLoading] = useState(true);
-const [error, setError] = useState<string | null>(null);
+import type { Post } from "../types/Post";
 
-useEffect(() => {
-  fetch("https://jsonplaceholder.typicode.com/posts")
-    .then((res) => {
-      if (!res.ok) throw new Error("Gagal memuat data");
-      return res.json();
+const BASE = "http://localhost:3000/api";
+
+async function parse(res: Response) {
+  const json = await res.json().catch(() => null);
+  if (!res.ok) throw new Error(json?.message ?? `Gagal (status ${res.status})`);
+  return json;
+}
+
+export async function getPosts(): Promise<Post[]> {
+  const json = await parse(await fetch(`${BASE}/posts`));
+  return json.data;
+}
+
+export async function createPost(data: { title: string; content: string }): Promise<Post> {
+  const json = await parse(
+    await fetch(`${BASE}/posts`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ...data, authorId: 1 }),
     })
-    .then((data: Post[]) => setPosts(data))
-    .catch((err) => setError(err.message))
-    .finally(() => setLoading(false));
-}, []);
+  );
+  return json.data;
+}
 
-if (loading) return <p>Loading...</p>;
-if (error) return <p>Error: {error}</p>;
+export async function deletePost(id: number): Promise<void> {
+  await parse(await fetch(`${BASE}/posts/${id}`, { method: "DELETE" }));
+}

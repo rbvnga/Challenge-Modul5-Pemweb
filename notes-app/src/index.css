@@ -39,3 +39,7 @@ button { cursor: pointer; border: 1px solid #ddd; background: #fff;
 footer { display: flex; justify-content: space-between; align-items: center;
   border-top: 1px solid #eee; padding-top: 12px; font-size: 13px; color: #777; }
 .link { border: none; background: none; color: #dc2626; font-weight: 600; }
+
+.posts { margin-top: 40px; border-top: 2px solid #fee2e2; padding-top: 20px; }
+.posts h2 { color: #dc2626; margin-top: 0; }
+.error { color: #b91c1c; background: #fee2e2; padding: 10px; border-radius: 6px; font-size: 14px; }
